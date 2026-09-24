@@ -1,37 +1,36 @@
+// =================================================================
+//                          Primitive Types
+// =================================================================
+
 /**
- * Primitive types:
- * 
  * string
  * number
  * bigint
  * boolean
  * undefined
  * symbol
+ * null
 */
-
-console.log(typeof "hello");           // "string"
-console.log(typeof 42);                // "number"
-console.log(typeof 42n);               // "bigint"
-console.log(typeof true);              // "boolean"
-console.log(typeof Symbol("id"));      // "symbol"
-console.log(typeof undefined);         // "undefined"
-console.log(typeof null);              // "object"
 
 /** 
- * "hello"      primitive
- * 42           primitive
- * true         primitive
- * null         primitive
+ * "hello"       string 
+ * 42            number
+ * 42n           bigint
+ * true          boolean
+ * undefined     undefined
+ * Symbol("id")  symbol
+ * null          null       (but typeof shows "object")
  * 
- * {}           object
- * []           object
- * () => {}     object
- * new Date()   object
+ * {}            object
+ * []            object
+ * () => {}      object    (but typeof shows "function")
+ * new Date()    object
+ * 
 */
 
-// ================
-// Number
-// ================
+// =================================================================
+//                              Number
+// =================================================================
 
 // Number → represents both integer and floating-point numbers.
 // Number uses IEEE 754 double-precision floating-point representation.
@@ -51,9 +50,9 @@ console.log(10 / 0);                   // Infinity
 console.log(-10 / 0);                  // -Infinity
 
 
-// ================
-// BigInt
-// ================
+// =================================================================
+//                              BigInt
+// =================================================================
 
 // BigInt → represents integers with arbitrary precision.
 // A different numeric type designed for exact integer arithmetic.
@@ -72,9 +71,9 @@ console.log(9007199254740993);   // 9007199254740992
 console.log(9007199254740993n);  // 9007199254740993n
 
 
-// ================
-// Boolean
-// ================
+// =================================================================
+//                              Boolean
+// =================================================================
 
 // Boolean → represents a logical value: true or false.
 
@@ -89,16 +88,16 @@ true + false  // 1
 false + false // 0
 
 
-// ================
-// Undefined
-// ================
+// =================================================================
+//                             Undefined
+// =================================================================
 
 // undefined → value representing the absence of a defined value.
 
 let c;
 console.log(c); // undefined
 
-function test() {}
+function test() { }
 console.log(test()); // undefined
 
 const person = {};
@@ -107,20 +106,20 @@ console.log(person.name); // undefined
 typeof undefined; // "undefined"
 
 
-// ================
-// Null
-// ================
+// =================================================================
+//                             Null
+// =================================================================
 
 // null → explicitly represents an intentional absence of a value/object.
 
-let user = null;
+let user1 = null;
 
 typeof null; // "object" — historical JavaScript quirk
 
 
-// ================
-// Symbol
-// ================
+// =================================================================
+//                             Symbol
+// =================================================================
 
 // Symbol → primitive type used to create unique identifiers.
 
@@ -133,3 +132,88 @@ const y = Symbol("id");
 x === y; // false
 
 typeof x; // "symbol"
+
+// =================================================================
+//                             Object
+// =================================================================
+
+// Object → collection of properties, each defined by a key and a value.
+
+const user = {
+  name: "Elias",
+  age: 25
+};
+
+console.log(user.name);    // "Elias"
+console.log(user["age"]);  // 25
+
+
+// Object References
+// Variables store references to objects, not the object itself.
+
+const obj1 = { value: 10 };
+const obj2 = obj1;
+
+obj2.value = 20;
+
+console.log(obj1.value); // 20
+console.log(obj2.value); // 20
+
+console.log(obj1 === obj2); // true
+
+// Different objects have different identities,
+// even when they contain the same values.
+
+const obj3 = { value: 10 };
+const obj4 = { value: 10 };
+
+console.log(obj3 === obj4); // false
+
+
+// const + Object
+// const prevents reassignment of the reference,
+// but does not prevent mutation of the object.
+
+const personObj = {
+  name: "Elias",
+  age: 25
+};
+
+personObj.age = 26; // OK
+
+// person = {};  // TypeError ❌
+
+
+// Shallow Copy
+// Creates a new object, copying the properties from the original at the first level*
+
+const original = {
+  name: "Elias",
+  age: 25
+};
+
+const copy = { ...original };
+
+console.log(original === copy); // false
+
+
+//* Nested objects still are not copied and share their reference.
+
+const original1 = {
+  name: "Elias",
+  address: {
+    city: "Juazeiro"
+  }
+};
+
+const copy2 = { ...original1 };
+
+console.log(original1 === copy2);             // false
+console.log(original1.address === copy2.address); // true
+
+copy2.address.city = "Crato";
+
+console.log(original1.address.city); // "Crato"
+
+// Spread creates a shallow copy:
+// the outer object is new, but nested objects are not cloned.
