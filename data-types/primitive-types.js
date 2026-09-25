@@ -29,6 +29,30 @@
 */
 
 // =================================================================
+//                             String
+// =================================================================
+
+// String → represents a sequence of text characters.
+
+const myName = "Elias";
+typeof myName; // "string"
+
+// Strings can be accessed by index and have a length, but they are not Arrays.
+
+myName[0];      // "E"
+myName.length;  // 5
+
+Array.isArray(myName); // false
+
+// Strings are primitive values, but they can access methods
+
+myName.toUpperCase(); // "ELIAS"
+myName.toLowerCase(); // "elias"
+myName.includes("E"); // true
+myName.slice(0, 3);    // "Eli"
+
+
+// =================================================================
 //                              Number
 // =================================================================
 
@@ -217,3 +241,24 @@ console.log(original1.address.city); // "Crato"
 
 // Spread creates a shallow copy:
 // the outer object is new, but nested objects are not cloned.
+
+// =================================================================  
+//                    Primitive Values & Methods
+// =================================================================
+
+// Primitive values can access methods and properties
+// through temporary boxing via their corresponding wrapper/prototype.
+
+// "hello".toUpperCase()
+// → conceptually similar to:
+// new String("hello").toUpperCase()
+
+// 10.2.toFixed(2)
+// → conceptually similar to:
+// new Number(10.2).toFixed(2)
+
+// The primitive itself remains a primitive:
+
+typeof "hello"; // "string"
+typeof 10.2;    // "number"
+typeof true;    // "boolean"
