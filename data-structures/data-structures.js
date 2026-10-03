@@ -2,10 +2,132 @@
 //                          Data Structures
 // =================================================================
 
-// A data structure is a way to organize, manage and store data for efficient access and modification.
+// A data structure is a way to organize, manage and store data in a way that allows efficient access and modification.
+// JavaScript provides built-in data structures, such as objects, arrays, maps and sets.
+// Other data structures, such as linked lists, stacks, queues, trees and graphs, can be implemented using JavaScript.
 
-// JavaScript provides built-in data structures, such as arrays and objects.
-// Non-built-in data structures are not provided directly by the language and must be implemented when needed.
+// =================================================================
+//                        Structured Data
+// =================================================================
+{
+  // Structured data refers to data organized in a defined, predictable and parseable format.
+  // It represents information in a way that can be consistently read and processed by humans and software.
+  // JSON is a widely used format for representing structured data, especially for data exchange between applications, APIs and configuration files.
+
+  // ================================
+  //              JSON
+  // ================================
+
+  // JSON (JavaScript Object Notation) is a text format used to represent structured data.
+  // JSON is text (string), not a JavaScript object.
+
+  const user = {
+    name: "Elias",
+    age: 25
+  };
+
+  const json = '{"name":"Elias","age":25}';
+
+  typeof user; // "object"
+  typeof json; // "string"
+
+  // Property names must use double quotes.
+
+  const validJSON = '{"name":"Elias"}';
+
+  // Invalid JSON:
+  // { name: "Elias" }
+
+  // Strings must use double quotes.
+  // Comments are not allowed.
+
+  // JSON supports:
+  // - string
+  // - number
+  // - boolean
+  // - null
+  // - object
+  // - array
+
+  // JSON does not have JavaScript-specific values such as:
+  // - undefined
+  // - Symbol
+  // - BigInt
+  // - Function
+
+
+  // ================================
+  //        JSON.stringify()
+  // ================================
+
+  // Converts a JavaScript value into a JSON string.
+
+  const serialized = JSON.stringify(user);
+
+  console.log(serialized); // '{"name":"Elias","age":25}'
+
+  // JavaScript value → JSON string
+
+
+  // stringify() behavior for different types:
+  // undefined, functions and Symbols:
+
+  // Inside objects → properties are omitted.
+  // Inside arrays → values become null.
+  // As the root value → returns undefined.
+
+  JSON.stringify({ value: undefined }); // "{}"
+
+  JSON.stringify([undefined]); // "[null]"
+
+  JSON.stringify(undefined); // undefined
+
+  // BigInt cannot be serialized by default.
+
+  JSON.stringify(10n); // TypeError
+
+  // Circular references also cause TypeError.
+
+  const obj = {};
+  obj.self = obj;
+
+  JSON.stringify(obj); // TypeError
+
+
+  // ================================
+  //          JSON.parse()
+  // ================================
+
+  // Converts a valid JSON string into a JavaScript value.
+
+  const parsed = JSON.parse(serialized);
+
+  console.log(parsed); // { name: "Elias", age: 25 }
+
+  // JSON string → JavaScript value
+
+  // The parsed object is a new object with a different identity.
+
+  parsed === user; // false
+
+
+  // parse() behavior:
+  // JSON.parse() requires valid JSON.
+
+  // Invalid JSON → SyntaxError.
+
+  JSON.parse('{"name":"Elias"}'); // { name: "Elias" }
+
+  JSON.parse('[1, 2, 3]'); // [1, 2, 3]
+
+  JSON.parse('"Elias"'); // "Elias"
+
+  JSON.parse('null'); // null
+
+  JSON.parse('undefined'); // SyntaxError
+
+  JSON.parse('{name:"Elias"}'); // SyntaxError
+}
 
 
 // =================================================================
