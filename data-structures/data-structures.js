@@ -437,71 +437,295 @@
 {
   // Collections where elements are accessed using numeric indexes.
 
-  // Array
+  // ================================
+  //              Array
+  // ================================
+  {
+    const fruits = ["apple", "banana", "orange"];
 
-  const fruits = ["apple", "banana", "orange"];
+    fruits[0]; // "apple"
+    fruits[1]; // "banana"
+    fruits[2]; // "orange"
 
-  fruits[0]; // "apple"
-  fruits[1]; // "banana"
-  fruits[2]; // "orange"
-
-  // Indexes start at 0.
-
-
-  // Arrays are objects:
-
-  typeof fruits; // "object"
-
-  Array.isArray(fruits); // true
+    // Indexes start at 0.
 
 
-  // `length`
+    // Arrays are objects:
 
-  // `length` is one greater than the highest array index,
-  // even when there are empty slots.
+    typeof fruits; // "object"
 
-  fruits.length; // 3
-
-  // The last index is usually:
-  // length - 1
-
-  fruits[fruits.length - 1]; // "orange"
+    Array.isArray(fruits); // true
 
 
-  // Array Prototype
+    // `length`
 
-  // Arrays inherit methods from Array.prototype.
+    // `length` is one greater than the highest array index,
+    // even when there are empty slots.
 
-  fruits.push("grape");
-  fruits.pop();
+    fruits.length; // 3
+
+    // The last index is usually:
+    // length - 1
+
+    fruits[fruits.length - 1]; // "orange"
+
+    // `length` can be changed manually.
+
+    fruits.length = 2;
+
+    console.log(fruits); // ["apple", "banana"]
 
 
-  // Sparse Arrays
+    // Array Prototype
 
-  // Arrays can contain empty slots (holes).
+    // Arrays inherit methods from Array.prototype.
 
-  const numbers = [];
+    fruits.push("grape");
+    fruits.pop();
 
-  numbers[0] = 10;
-  numbers[5] = 50;
 
-  console.log(numbers.length); // 6
+    // Sparse Arrays
 
-  // The array contains empty slots between index 0 and 5:
-  //
-  // 0 → 10
-  // 1 → empty
-  // 2 → empty
-  // 3 → empty
-  // 4 → empty
-  // 5 → 50
+    // Arrays can contain empty slots (holes).
 
-  // These are holes, not explicitly stored `undefined` values.
+    const numbers = [];
 
-  numbers[1]; // undefined
+    numbers[0] = 10;
+    numbers[5] = 50;
 
-  // However, index 1 does not actually exist in the array:
+    console.log(numbers.length); // 6
 
-  1 in numbers; // false
-  0 in numbers; // true
+    // The array contains empty slots between index 0 and 5:
+    //
+    // 0 → 10
+    // 1 → empty
+    // 2 → empty
+    // 3 → empty
+    // 4 → empty
+    // 5 → 50
+
+    // These are holes, not explicitly stored `undefined` values.
+
+    numbers[1]; // undefined
+
+    // However, index 1 does not actually exist in the array:
+
+    1 in numbers; // false
+    0 in numbers; // true
+
+
+    // References
+
+    const array1 = [1, 2, 3];
+    const array2 = array1;
+
+    array2.push(4);
+
+    console.log(array1); // [1, 2, 3, 4]
+    console.log(array2); // [1, 2, 3, 4]
+
+    // Both variables reference the same Array.
+
+
+    // Shallow Copy
+
+    const original = [1, 2, 3];
+    const copy = [...original];
+
+    copy.push(4);
+
+    console.log(original); // [1, 2, 3]
+    console.log(copy);     // [1, 2, 3, 4]
+
+    // Spread creates a new Array with the same element references.
+    // It performs a shallow copy.
+
+
+    // Common Array Methods
+
+    const values = [1, 2, 3, 4];
+
+    values.map(x => x * 2);
+    // [2, 4, 6]
+    // Returns a new Array.
+
+    values.filter(x => x > 2);
+    // [3, 4]
+    // Returns a new Array.
+
+    values.find(x => x > 2);
+    // 3
+    // Returns the first matching element.
+
+    values.some(x => x > 3);
+    // true
+    // Checks whether at least one element matches.
+
+    values.every(x => x > 0);
+    // true
+    // Checks whether all elements match.
+
+    values.forEach(x => console.log(x));
+    // Executes a function for each element.
+    // Returns undefined.
+
+    values.reduce((sum, x) => sum + x, 0);
+    // 10
+    // Reduces the elements to a single result.
+
+
+    // Mutating Methods
+
+    const items = [1, 2, 3];
+
+    items.push(4);
+    // [1, 2, 3, 4]
+    // Returns the new length.
+
+    items.pop();
+    // [1, 2, 3]
+    // Returns the removed element.
+
+    // Some Array methods modify the original Array,
+    // while others return a new value or Array.
+  }
+
+
+  // ================================
+  //            Typed Array
+  // ================================
+  {
+    // Typed Arrays are structures used to store numeric values with a specific type and bit width.
+    // They are used to work with binary data and memory, like when interacting with files, network protocols, or WebGL.
+
+    // Unlike regular Arrays:
+    // - They have a fixed length.
+    // - They store numeric values using a specific representation.
+    // - They are especially useful for binary data.
+
+    // Examples:
+    // Int8Array, Uint8Array, Int16Array, Uint16Array,
+    // Int32Array, Uint32Array, Float32Array, Float64Array,
+    // BigInt64Array and BigUint64Array.
+
+    // Int  → signed integer
+    // Uint → unsigned integer
+    // Float → floating-point number
+    // The number represents the number of bits per element.
+
+    // Uint8 → unsigned 8-bit integer
+    // 8 bits = 1 byte
+    // Range: 0 to 255.
+
+    const numbers = new Uint8Array([10, 20, 30]);
+
+    console.log(numbers[0]); // 10
+    console.log(numbers.length); // 3
+
+    // ================================
+    //          ArrayBuffer
+    // ================================
+
+    // ArrayBuffer represents a region of raw memory. It does not interpret the data by itself.
+
+    const buffer = new ArrayBuffer(8);
+
+    // Typed Arrays create a "view" over the buffer, allowing the data to be interpreted as specific types.
+
+    const bytes = new Uint8Array(buffer);
+
+    bytes[0] = 255;
+
+    console.log(bytes[0]); // 255
+
+    // The same ArrayBuffer can have multiple views.
+
+    const buffer2 = new ArrayBuffer(2);
+
+    const uint = new Uint8Array(buffer2);
+    const int = new Int8Array(buffer2);
+
+    uint[0] = 255;
+
+    console.log(uint[0]); // 255
+    console.log(int[0]);  // -1
+
+    // The bits are the same. The view type determines how they are interpreted.
+
+    // Mental model:
+    // ArrayBuffer = raw memory / raw data
+    // Typed Array = a way to interpret that memory
+
+    // ================================
+    //      Numeric Representation
+    // ================================
+
+    // Uint8Array → 0 to 255
+    // Int8Array  → -128 to 127
+
+    const buffer3 = new ArrayBuffer(2);
+
+    const uint8 = new Uint8Array(buffer3);
+    const int8 = new Int8Array(buffer3);
+
+    uint8[0] = 128;
+    uint8[1] = 255;
+
+    console.log(uint8[0]); // 128
+    console.log(uint8[1]); // 255
+
+    console.log(int8[0]); // -128
+    console.log(int8[1]); // -1
+
+    // The same sequence of bits can represent different values depending on the type used to interpret them.
+
+    // ================================
+    //     Values Outside the Range
+    // ================================
+
+    // Typed Arrays have a range determined by their type.
+    // Integer values outside that range are converted to the representation supported by the type.
+
+    const values = new Uint8Array([0, 100, 255, 256, 300, -10]);
+
+    console.log(values); // [0, 100, 255, 0, 44, 246]
+
+    // ================================
+    //            Use Cases
+    // ================================
+
+    // Typed Arrays are mainly used when working with binary data or lower-level memory representations.
+
+    // Examples:
+    // - files
+    // - images
+    // - audio and video
+    // - network data
+    // - cryptography
+    // - WebGL / WebGPU
+    // - binary file formats
+
+    // Example: reading a file as binary data
+
+    const bufferFromFile = await file.arrayBuffer();
+    const fileBytes = new Uint8Array(bufferFromFile);
+
+    // Each position now represents one byte of the file.
+
+    // ================================
+    //            Important
+    // ================================
+
+    // Typed Arrays are not regular Arrays.
+
+    // typeof new Uint8Array() === "object"
+
+    // They have familiar features such as indexing and length,
+    // but they follow different rules and have a fixed length.
+
+    // Typed Arrays do not support methods that change their length,
+    // such as push().
+
+    // The size of a Typed Array is fixed when it is created.
+  }
 }
