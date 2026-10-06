@@ -45,6 +45,8 @@ The focus is on understanding how JavaScript works, reasoning about code, and gr
 
 This repository is a work in progress. I'm following the roadmap sequentially and documenting the concepts as I study them.
 
+[![roadmap.sh](https://roadmap.sh/card/tall/6a90207ebff53a970068f2c4?variant=dark&roadmaps=javascript)](https://roadmap.sh)
+
 > The roadmap may evolve as I progress through the studies.
 
 ## 🔗 References
