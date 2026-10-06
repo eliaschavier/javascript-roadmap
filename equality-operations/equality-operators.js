@@ -24,7 +24,7 @@ true == 1;       // true
 // `==` does NOT always convert everything to a number. The conversion depends on the values being compared.
 
 // Special case:
-// null and undefined are loosely equal to each other.
+// `null` and `undefined` are loosely equal to each other.
 
 null == undefined; // true
 
@@ -43,7 +43,9 @@ undefined == false; // false
 //                   Strict Equality (===)
 // =================================================================
 
-// `===` compares values without type coercion. The types must match.
+// `===` compares values without type coercion.
+// Different types are never strictly equal.
+// Objects are compared by reference.
 
 5 === 5;     // true
 5 === "5";   // false
@@ -64,7 +66,8 @@ a === c; // true
 //                 Objects and Loose Equality
 // =================================================================
 
-// When an object is compared with a primitive using `==`, JavaScript can convert the object to a primitive value.
+// When an object is compared with a primitive using `==`,
+// JavaScript can convert the object to a primitive value.
 
 const obj = {
   valueOf() {
@@ -131,10 +134,67 @@ Number.isNaN(NaN); // true
 +0 === -0; // true
 +0 == -0;  // true
 
-// Object.is() distinguishes them.
 
-Object.is(+0, -0); // false
+// =================================================================
+//                        Object.is()
+// =================================================================
+
+// `Object.is()` compares two values using the SameValue algorithm.
+//
+// It is similar to `===`, but differs in two special cases:
+//
+// 1. NaN is considered equal to itself.
+// 2. +0 and -0 are considered different.
+
 Object.is(NaN, NaN); // true
+NaN === NaN;         // false
+
+Object.is(+0, -0);   // false
++0 === -0;           // true
+
+// For most other values, `Object.is()` behaves like `===`.
+
+Object.is(10, 10);               // true
+Object.is(10, "10");             // false
+Object.is(true, 1);              // false
+Object.is(null, null);           // true
+Object.is(undefined, undefined); // true
+
+// Objects are compared by reference.
+
+const obj1 = {};
+const obj2 = {};
+const obj3 = obj1;
+
+Object.is(obj1, obj2); // false
+Object.is(obj1, obj3); // true
+
+// `Object.is()` does NOT mean "compare objects".
+// It can compare any JavaScript values.
+
+
+// =================================================================
+//                    Equality Algorithms
+// =================================================================
+
+// Equality Algorithms are internal specification algorithms
+// that define how JavaScript compares values.
+// They are not functions or methods available to call directly.
+
+// `==`          → isLooselyEqual
+// `===`         → isStrictlyEqual
+// `Object.is()` → SameValue
+// Set/Map       → SameValueZero
+
+// Main differences:
+//
+//                  NaN vs NaN    +0 vs -0
+// `===`                false         true
+// SameValue            true          false
+// SameValueZero        true          true
+
+// `SameValueZero` is used by some JavaScript APIs,
+// such as Set, Map and certain Array methods.
 
 
 // =================================================================
