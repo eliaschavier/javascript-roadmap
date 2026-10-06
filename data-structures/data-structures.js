@@ -514,6 +514,42 @@
     0 in numbers; // true
 
 
+    // Iterating over Sparse Arrays
+
+    // `for...in` iterates over existing properties/indexes.
+    // Empty slots (holes) are skipped.
+
+    
+    const sparse = [];
+    sparse[2] = "hello";
+
+    for (let index in sparse) {
+      console.log(index);
+    }
+
+    // 2
+
+
+    // `for...of` iterates over the values of the sequence.
+    // It follows the array's length, so holes produce `undefined`.
+
+    for (let value of sparse) {
+      console.log(value);
+    }
+
+    // undefined
+    // undefined
+    // "hello"
+
+
+    // Important:
+    // `arr[0]` can return `undefined` even when index 0 does not exist.
+    // `0 in arr` can therefore be false.
+    //
+    // `for...in` checks existing indexes → holes are skipped.
+    // `for...of` reads the sequence → holes produce `undefined`.
+
+
     // References
 
     const array1 = [1, 2, 3];
