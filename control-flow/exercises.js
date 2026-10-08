@@ -247,63 +247,214 @@
   }
 }
 
+// ================================
+// try...catch
+// ================================
+{
+  // 19
+  try {
+    console.log("A");
+  } catch (error) {
+    console.log("B");
+  }
+
+  // 20
+  try {
+    console.log("A");
+    throw new Error("Oops");
+    console.log("B");
+  } catch (error) {
+    console.log("C");
+  }
+
+  // 21
+  try {
+    throw new Error("Oops");
+  } catch (error) {
+    console.log(error.message);
+  }
+
+  // 22
+  try {
+    console.log("A");
+  } catch (error) {
+    console.log("B");
+  } finally {
+    console.log("C");
+  }
+
+  // 23
+  try {
+    throw new Error("Oops");
+  } catch (error) {
+    console.log("A");
+  } finally {
+    console.log("B");
+  }
+
+  // 24
+  function test() {
+    throw new Error("Oops");
+  }
+
+  try {
+    test();
+  } catch (error) {
+    console.log("Caught");
+  }
+
+  // 25
+  try {
+    throw new Error("Oops");
+  } finally {
+    console.log("Finally");
+  }
+
+  // 26
+  try {
+    throw new TypeError("Invalid type");
+  } catch (error) {
+    console.log(error.name);
+    console.log(error.message);
+  }
+
+  // 27
+  try {
+    throw 404;
+  } catch (error) {
+    console.log(error);
+  }
+
+  // 28
+  try {
+    throw new Error("Oops");
+  } catch (error) {
+    console.log("Caught");
+  }
+  console.log("Continued");
+
+  // 29
+  try {
+    throw new Error("Oops");
+  } catch (error) {
+    console.log("Caught");
+    throw error;
+  }
+  console.log("Continued");
+
+  // 30
+  function test() {
+    try {
+      return "A";
+    } finally {
+      console.log("B");
+    }
+  }
+  console.log(test());
+
+  // 31
+  function test() {
+    try {
+      return "A";
+    } finally {
+      return "B";
+    }
+  }
+  console.log(test());
+
+  // 32
+  try {
+    setTimeout(() => {
+      throw new Error("Oops");
+    }, 0);
+  } catch (error) {
+    console.log("Caught");
+  }
+  console.log("End");
+}
+
 // ==================================================================
 //                             Solutions
 // ==================================================================
+{
+  // 1
+  "A"
 
-// 1
-"A"
+  // 2
+  "B"
 
-// 2
-"B"
+  // 3
+  "truthy"
 
-// 3
-"truthy"
+  // 4
+  "empty"
 
-// 4
-"empty"
+  // 5
+  "A"
 
-// 5
-"A"
+  // 6
+  "A"
 
-// 6
-"A"
+  // 7 
+  "B"
 
-// 7 
-"B"
+  // 8
+  "A"
+  "B"
 
-// 8
-"A"
-"B"
+  // 9
+  "B"
 
-// 9
-"B"
+  // 10
+  "A"
 
-// 10
-"A"
+  // 11
+  "B"
 
-// 11
-"B"
+  // 12 
+  "B"
 
-// 12 
-"B"
+  // 13
+  "B"
 
-// 13
-"B"
+  // 14
+  "B"
 
-// 14
-"B"
+  // 15
+  "D"
 
-// 15
-"D"
+  // 16
+  "A"
+  "B"
+  "C"
 
-// 16
-"A"
-"B"
-"C"
+  // 17
+  "Weekend"
 
-// 17
-"Weekend"
+  // 18
+  "string"
 
-// 18
-"string"
+  // 19
+  "A"
+
+  // 20
+  "A"
+  "C"
+
+  // 21
+  "Oops"
+
+  // 22
+  "A"
+  "C"
+
+  // 23
+  "A"
+  "B"
+
+  // 24
+  "Caught"
+
+  // 25
+  "Finally"
+}
