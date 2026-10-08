@@ -13,18 +13,8 @@
 
     // When a value is used in a boolean context, JavaScript evaluates it as truthy or falsy (ToBoolean).
 
-    // Falsy values:
-    false;
-    0, -0;
-    0n;
-    "";
-    null;
-    undefined;
-    NaN;
-
-    // All other values are truthy, including:
-    [];
-    { };
+    // Falsy values: false, 0, -0, 0n, "", null, undefined, NaN
+    // Truthy examples: [], {}, "0", "false", 42, -42, Infinity, -Infinity
 
 
     // ================================
@@ -78,7 +68,24 @@
     // Without `break`, execution continues into subsequent cases (fall-through).
     // Multiple cases can share the same block through intentional fall-through.
 
+    // All `case` clauses share the same lexical scope.
+    // Use braces `{}` to create separate scopes when needed, especially for `let` and `const` declarations.
+
+    switch (expression) {
+      case 1: {
+        let result = "One";
+        break;
+      }
+
+      case 2: {
+        let result = "Two"; // Without braces, this would conflict with the previous `result`.
+        break;
+      }
+    }
   }
+
+  // `NaN` never matches `case NaN`, because NaN === NaN is false.
+
 
   // =================================================================
   //                      Exceptional Handling
@@ -112,9 +119,9 @@
     // ================================
 
     Error             // represents an error and provides useful information.
-    `error.name`      // the error type/name.
-    `error.message`   // the error message.
-    `error.stack`     // usually provides the stack trace.
+      `error.name`      // the error type/name.
+      `error.message`   // the error message.
+      `error.stack`     // usually provides the stack trace.
 
     // Common built-in error types:
     Error, TypeError, ReferenceError, SyntaxError, RangeError
@@ -176,7 +183,7 @@
     } finally {
       console.log("Cleanup");
     }
-    
+
     // Logs "Cleanup", then the error continues propagating.
 
     // `finally` also runs when `try` or `catch` returns or throws.
