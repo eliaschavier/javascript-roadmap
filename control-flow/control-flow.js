@@ -82,9 +82,9 @@
         break;
       }
     }
-  }
 
-  // `NaN` never matches `case NaN`, because NaN === NaN is false.
+    // `NaN` never matches `case NaN`, because NaN === NaN is false.
+  }
 
 
   // =================================================================
