@@ -1,5 +1,5 @@
 // =================================================================
-//                     Equality Operators
+//                     Equality Comparisons
 // =================================================================
 
 // JavaScript provides four equality operators:
