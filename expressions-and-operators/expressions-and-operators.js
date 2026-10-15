@@ -187,8 +187,12 @@
     const a = x++; // a = 5; x = 6
     const b = ++x; // x = 7; b = 7
 
-    // Increment and decrement require a valid assignment target.
-    // They are commonly used with variables, not arbitrary values.
+    // Both prefix and postfix modify the variable.
+    // The difference is the value returned by the expression.
+
+    // Postfix returns the old value, then increments.
+    // Prefix increments first, then returns the new value.
+
 
     // ================================
     //            Logical NOT
@@ -269,5 +273,110 @@
 
     -(n ** 2);   // -9
     (-n) ** 2;   // 9
+  }
+
+  // =================================================================
+  //                       Assignment Operators
+  // =================================================================
+  {
+    // Assignment operators assign values to variables or properties.
+    // The assignment expression evaluates to the assigned value.
+
+    // ================================
+    //        Simple Assignment
+    // ================================
+
+    let x = 10;
+    x = 20; // x is now 20
+
+    // Assignment to an existing variable replaces its current value.
+    // `const` prevents reassignment, but does not make objects immutable.
+
+    // ================================
+    //      Arithmetic Assignment
+    // ================================
+
+    let n = 10;
+
+    n += 5;  // n = n + 5;   n is 15
+    n -= 3;  // n = n - 3;   n is 12
+    n *= 2;  // n = n * 2;   n is 24
+    n /= 4;  // n = n / 4;   n is 6
+    n %= 4;  // n = n % 4;   n is 2
+    n **= 3; // n = n ** 3;  n is 8
+
+    // `/= ` performs regular division, not integer division.
+
+    // ================================
+    //      Bitwise Assignment
+    // ================================
+
+    let bits = 5; // binary: 0101
+
+    bits &= 3;  // bitwise AND assignment; bits is 1
+    bits |= 4;  // bitwise OR assignment; bits is 5
+    bits ^= 1;  // bitwise XOR assignment; bits is 4
+
+    // Other bitwise assignment operators:
+    // <<=, >>=, >>>=, and (for BigInt) shift/bitwise variants
+    // supported by the language.
+
+    // Bitwise operators on Number values use 32-bit integer
+    // conversions. BigInt bitwise operations use BigInt values.
+
+    // ================================
+    //       Logical Assignment
+    // ================================
+
+    // `||= ` assigns only when the current value is falsy.
+    let a = 0;
+    a ||= 10; // a is 10
+
+    // `&&= ` assigns only when the current value is truthy.
+    let b = false;
+    b &&= true; // b remains false
+
+    // `??= ` assigns only when the current value is nullish
+    // (null or undefined).
+    let c = null;
+    c ??= 20; // c is 20
+
+    // These operators short-circuit:
+    // if assignment is skipped, the right-hand expression
+    // is not evaluated.
+
+    // ================================
+    //      Assignment & Strings
+    // ================================
+
+    let text = "Value: ";
+    text += 42; // text is "Value: 42"
+
+    // `+= ` uses the semantics of the ` + ` operator.
+    // It may perform numeric addition or string concatenation.
+
+    // ================================
+    //       Assignment & Objects
+    // ================================
+
+    const user = { score: 1 };
+    user.score += 4; // user.score is 5
+
+    // `const` prevents rebinding `user`, not modifying its properties.
+
+    // ================================
+    //       Assignment Expressions
+    // ================================
+
+    let first;
+    let second;
+
+    first = second = 10;
+    // Assignment is right-associative:
+    // `second` becomes 10, then `first` becomes 10.
+
+    // Compound assignments are not always interchangeable
+    // with manually expanded expressions when the left-hand
+    // side has getters, setters, or side effects.
   }
 }
