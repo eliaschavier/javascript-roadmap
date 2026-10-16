@@ -379,4 +379,108 @@
     // with manually expanded expressions when the left-hand
     // side has getters, setters, or side effects.
   }
+
+  // =================================================================
+  //                      Comparison Operators
+  // =================================================================
+  {
+    // Comparison operators compare values and return a boolean:
+    // true or false.
+
+    // ================================
+    //        Strict Equality
+    // ================================
+
+    // `===` checks equality without type conversion.
+    // `!==` checks strict inequality.
+
+    5 === 5;   // true
+    5 === "5"; // false
+    5 !== "5"; // true
+
+    // Prefer strict equality unless coercion is intentional.
+
+    // ================================
+    //       Loose Equality
+    // ================================
+
+    // `==` and `!=` may convert operand types before comparing.
+
+    5 == "5";       // true
+    0 == false;     // true
+    "" == 0;        // true
+    null == undefined; // true
+
+    5 != "5"; // false
+
+    // `null == undefined` is a special case.
+    // They are not strictly equal:
+    null === undefined; // false
+
+    // Avoid relying on complicated coercion rules.
+
+    // ================================
+    //       Relational Operators
+    // ================================
+
+    // `<`, `>`, `<=`, and `>=` compare values.
+    // When both operands are strings, comparison is lexicographic.
+    // Otherwise, operands are generally converted to primitives
+    // and compared numerically when applicable.
+
+    3 < 5;        // true
+    5 >= 5;       // true
+    "20" < "3";   // true: lexicographic comparison
+    "20" < 3;     // false: numeric comparison (20 < 3)
+
+    // If a numeric comparison involves NaN, the relational
+    // comparison evaluates to false.
+
+    NaN < 1;  // false
+    NaN >= 1; // false
+
+    // ================================
+    //              NaN
+    // ================================
+
+    // NaN is not equal to any value, including itself.
+
+    NaN === NaN; // false
+    NaN !== NaN; // true
+
+    // Use Number.isNaN() to test specifically for NaN.
+    Number.isNaN(NaN); // true
+
+    // ================================
+    //       Object Comparison
+    // ================================
+
+    // Objects are compared by identity, not by their contents.
+
+    ({ x: 1 }) === ({ x: 1 }); // false
+
+    const first = { x: 1 };
+    const second = first;
+
+    first === second; // true: same object reference
+
+    // Arrays follow the same identity rules.
+    // [1, 2] === [1, 2]; // false
+
+    // ================================
+    //            Object.is()
+    // ================================
+
+    // Object.is() uses SameValue comparison semantics.
+    // Unlike `===`, it treats NaN as equal to itself
+    // and distinguishes positive zero from negative zero.
+
+    Object.is(NaN, NaN); // true
+    Object.is(0, -0);    // false
+
+    0 === -0;            // true
+    NaN === NaN;         // false
+
+    // Use Object.is() when these specific distinctions matter.
+  }
 }
