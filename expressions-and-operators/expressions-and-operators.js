@@ -406,16 +406,30 @@
 
     // `==` and `!=` may convert operand types before comparing.
 
-    5 == "5";       // true
-    0 == false;     // true
-    "" == 0;        // true
+    5 == "5";          // true
+    0 == false;        // true
+    "" == 0;           // true
     null == undefined; // true
 
     5 != "5"; // false
 
     // `null == undefined` is a special case.
     // They are not strictly equal:
+
     null === undefined; // false
+
+    // Important special cases:
+    // `null` is loosely equal to `undefined`, but not to 0, false, or an empty string.
+
+    null == 0;         // false
+    undefined == 0;    // false
+    null == false;     // false
+    null == "";        // false
+
+    // Falsy values are not necessarily equal to false.
+    Boolean(null);      // false
+    Boolean(undefined); // false
+    null === false;     // false
 
     // Avoid relying on complicated coercion rules.
 
@@ -425,37 +439,70 @@
 
     // `<`, `>`, `<=`, and `>=` compare values.
     // When both operands are strings, comparison is lexicographic.
-    // Otherwise, operands are generally converted to primitives
-    // and compared numerically when applicable.
+    // Otherwise, values are converted to primitives and compared according to the relational comparison rules.
 
-    3 < 5;        // true
-    5 >= 5;       // true
-    "20" < "3";   // true: lexicographic comparison
-    "20" < 3;     // false: numeric comparison (20 < 3)
+    3 < 5;       // true
+    5 >= 5;      // true
 
-    // If a numeric comparison involves NaN, the relational
-    // comparison evaluates to false.
+    "20" < "3";  // true: lexicographic comparison
+    "20" < 3;    // false: numeric comparison (20 < 3)
+
+    // Lexicographic comparison compares strings character by character, using their UTF-16 code units.
+
+    "8" < "12";  // false: compares "8" with "1" first
+    "8" < 12;    // true: numeric comparison
+
+    // In relational comparisons, `null` is converted to 0. This differs from loose equality.
+
+    null >= 0; // true
+    null > 0;  // false
+    null == 0; // false
+
+    // `undefined` becomes NaN in numeric relational comparisons.
+    // Therefore, these comparisons are false.
+
+    undefined < 0;  // false
+    undefined >= 0; // false
+
+    // If a relational comparison involves NaN, it evaluates
+    // to false, including <= and >=.
 
     NaN < 1;  // false
+    NaN > 1;  // false
+    NaN <= 1; // false
     NaN >= 1; // false
 
     // ================================
     //              NaN
     // ================================
 
-    // NaN is not equal to any value, including itself.
+    // NaN is not equal to any value, including itself,
+    // when using `==` or `===`.
 
+    NaN == NaN;  // false
     NaN === NaN; // false
+    NaN != NaN;  // true
     NaN !== NaN; // true
 
-    // Use Number.isNaN() to test specifically for NaN.
-    Number.isNaN(NaN); // true
+    // All relational comparisons involving NaN are false.
+
+    NaN < 0;  // false
+    NaN > 0;  // false
+    NaN <= 0; // false
+    NaN >= 0; // false
+
+    // Use Number.isNaN() to check whether a value is NaN.
+    // It does not convert the value before checking.
+
+    Number.isNaN(NaN);   // true
+    Number.isNaN("abc"); // false
 
     // ================================
     //       Object Comparison
     // ================================
 
     // Objects are compared by identity, not by their contents.
+    // Two different objects are not equal, even if their properties contain the same values.
 
     ({ x: 1 }) === ({ x: 1 }); // false
 
@@ -465,7 +512,13 @@
     first === second; // true: same object reference
 
     // Arrays follow the same identity rules.
+
     // [1, 2] === [1, 2]; // false
+
+    const arrayA = [1, 2];
+    const arrayB = arrayA;
+
+    arrayA === arrayB; // true: same array reference
 
     // ================================
     //            Object.is()
@@ -476,11 +529,17 @@
     // and distinguishes positive zero from negative zero.
 
     Object.is(NaN, NaN); // true
-    Object.is(0, -0);    // false
-
-    0 === -0;            // true
     NaN === NaN;         // false
+
+    Object.is(0, -0);    // false
+    0 === -0;            // true
+
+    // For ordinary values, they generally behave alike.
+
+    Object.is(5, 5); // true
+    5 === 5;         // true
 
     // Use Object.is() when these specific distinctions matter.
   }
+
 }
