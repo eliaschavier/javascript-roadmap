@@ -318,11 +318,9 @@
     bits ^= 1;  // bitwise XOR assignment; bits is 4
 
     // Other bitwise assignment operators:
-    // <<=, >>=, >>>=, and (for BigInt) shift/bitwise variants
-    // supported by the language.
+    // <<=, >>=, >>>=, and (for BigInt) shift/bitwise variants supported by the language.
 
-    // Bitwise operators on Number values use 32-bit integer
-    // conversions. BigInt bitwise operations use BigInt values.
+    // Bitwise operators on Number values use 32-bit integer conversions. BigInt bitwise operations use BigInt values.
 
     // ================================
     //       Logical Assignment
@@ -336,14 +334,12 @@
     let b = false;
     b &&= true; // b remains false
 
-    // `??= ` assigns only when the current value is nullish
-    // (null or undefined).
+    // `??= ` assigns only when the current value is nullish (null or undefined).
     let c = null;
     c ??= 20; // c is 20
 
     // These operators short-circuit:
-    // if assignment is skipped, the right-hand expression
-    // is not evaluated.
+    // if assignment is skipped, the right-hand expression is not evaluated.
 
     // ================================
     //      Assignment & Strings
@@ -375,9 +371,7 @@
     // Assignment is right-associative:
     // `second` becomes 10, then `first` becomes 10.
 
-    // Compound assignments are not always interchangeable
-    // with manually expanded expressions when the left-hand
-    // side has getters, setters, or side effects.
+    // Compound assignments are not always interchangeable with manually expanded expressions when the left-hand side has getters, setters, or side effects.
   }
 
   // =================================================================
@@ -540,6 +534,178 @@
     5 === 5;         // true
 
     // Use Object.is() when these specific distinctions matter.
+  }
+
+  // =================================================================
+  //                      Arithmetic Operators
+  // =================================================================
+  {
+    // Arithmetic operators perform mathematical operations on numeric values.
+
+    // ================================
+    //       Basic Arithmetic
+    // ================================
+
+    // Addition
+    10 + 5; // 15
+
+    // Subtraction
+    10 - 5; // 5
+
+    // Multiplication
+    10 * 5; // 50
+
+    // Division
+    10 / 4; // 2.5
+
+    // Remainder: returns the remainder of division.
+    10 % 4; // 2
+
+    // Exponentiation
+    2 ** 3; // 8
+
+    // ================================
+    //       Remainder Operator (%)
+    // ================================
+
+    // The remainder has the same sign as the dividend
+    // (the left operand), or is zero.
+
+    7 % 2;   // 1
+    8 % 2;   // 0
+    -7 % 2;  // -1
+    7 % -2;  // 1
+    -7 % -2; // -1
+
+    // `%` is a remainder operator, not mathematical modulo.
+    // For negative numbers, the result may be negative.
+
+    // ================================
+    //       Operator Precedence
+    // ================================
+
+    // Multiplication, division, and remainder have higher
+    // precedence than addition and subtraction.
+
+    2 + 3 * 4;   // 14
+    (2 + 3) * 4; // 20
+
+    // Exponentiation has higher precedence than multiplication.
+    2 ** 3 * 2; // 16
+
+    // Exponentiation is right-associative.
+    2 ** 3 ** 2;   // 512
+    2 ** (3 ** 2); // 512
+    (2 ** 3) ** 2; // 64
+
+    // Use parentheses when the intended order is unclear.
+
+    // ================================
+    //       Type Coercion
+    // ================================
+
+    // The `+` operator performs addition or string concatenation.
+    // If string concatenation occurs, operands are converted
+    // to strings as needed.
+
+    10 + 2;    // 12
+    "10" + 2;  // "102"
+    10 + "2";  // "102"
+    "10" + "2"; // "102"
+
+    // The `-`, `*`, and `/` operators perform numeric operations.
+    // Numeric strings are converted to numbers when possible.
+
+    "10" - 2; // 8
+    "10" * 2; // 20
+    "10" / 2; // 5
+
+    // If conversion to a valid number fails, the result is NaN.
+
+    "hello" - 2; // NaN
+    "hello" * 2; // NaN
+    "hello" / 2; // NaN
+
+    // Operations are evaluated according to precedence
+    // and associativity. Each operation produces a value
+    // that is used by the next operation.
+
+    10 + "5" - 2; // 103
+    // First: 10 + "5" -> "105"
+    // Then: "105" - 2 -> 103
+
+    10 - "5" + "2"; // "52"
+    // First: 10 - "5" -> 5
+    // Then: 5 + "2" -> "52"
+
+    // ================================
+    //       Infinity and NaN
+    // ================================
+
+    // Division by zero may produce Infinity or -Infinity.
+
+    1 / 0;  // Infinity
+    -1 / 0; // -Infinity
+
+    // Zero divided by zero produces NaN.
+    0 / 0; // NaN
+
+    // Remainder with a zero divisor produces NaN.
+    5 % 0;  // NaN
+    -5 % 0; // NaN
+
+    // NaN means "Not a Number".
+    // It propagates through most arithmetic operations.
+
+    NaN + 1; // NaN
+    NaN * 2; // NaN
+
+    // Check for NaN with Number.isNaN().
+    Number.isNaN(NaN);   // true
+    Number.isNaN("hello"); // false
+
+    // Infinity is a special numeric value, not an error.
+    Infinity + 1; // Infinity
+    Infinity - Infinity; // NaN
+
+    // ================================
+    //       Increment and Decrement
+    // ================================
+
+    // These operators were covered under Unary Operators.
+    // Prefix modifies the variable first and returns the new value.
+    // Postfix returns the old value and then modifies the variable.
+
+    let x = 5;
+
+    x++; // expression value: 5; x becomes 6
+    ++x; // expression value: 7; x becomes 7
+
+    x--; // expression value: 7; x becomes 6
+    --x; // expression value: 5; x becomes 5
+
+    // Increment and decrement require a valid assignable operand.
+    // They are commonly used with numeric variables.
+
+    // ================================
+    //       Arithmetic Assignment
+    // ================================
+
+    // Compound assignment operators combine an operation
+    // with assignment.
+
+    let score = 10;
+
+    score += 5; // score = score + 5 -> 15
+    score -= 3; // score = score - 3 -> 12
+    score *= 2; // score = score * 2 -> 24
+    score /= 4; // score = score / 4 -> 6
+    score %= 4; // score = score % 4 -> 2
+    score **= 3; // score = score ** 3 -> 8
+
+    // Note: `+=` follows the same addition/concatenation rules
+    // as `+`. The other arithmetic assignments perform
+    // their corresponding operations.
   }
 
 }
