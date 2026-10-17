@@ -708,4 +708,156 @@
     // their corresponding operations.
   }
 
+
+  /* =================================================================
+                           Bitwise Operators
+  ================================================================= */
+
+  // Bitwise operators perform operations on the binary representations
+  // of numbers. They operate on individual bits and return a Number.
+
+  // JavaScript converts Number operands to 32-bit integers for
+  // bitwise operations. The result is also a 32-bit integer value
+  // represented as a JavaScript Number.
+
+  // Binary Representation
+  // A bit is a binary digit: 0 or 1.
+  // Each bit position represents a power of 2.
+  //
+  // Decimal 5 = Binary 0101
+  // Decimal 3 = Binary 0011
+  //
+  // Bitwise operators compare corresponding bit positions and
+  // produce a new binary result.
+
+  // =================================================================
+  //                      Bitwise AND (&)
+  // =================================================================
+
+  // A result bit is 1 only when BOTH corresponding bits are 1.
+
+  5 & 3; // 1
+  // 0101
+  // 0011
+  // ----
+  // 0001 = 1
+
+  5 & 1; // 1
+  5 & 2; // 0
+  7 & 3; // 3
+
+  // =================================================================
+  //                      Bitwise OR (|)
+  // =================================================================
+
+  // A result bit is 1 when AT LEAST ONE corresponding bit is 1.
+
+  5 | 3; // 7
+  // 0101
+  // 0011
+  // ----
+  // 0111 = 7
+
+  5 | 1; // 5
+  5 | 2; // 7
+
+  // =================================================================
+  //                      Bitwise XOR (^)
+  // =================================================================
+
+  // XOR means exclusive OR.
+  // A result bit is 1 when the corresponding bits are DIFFERENT.
+
+  5 ^ 3; // 6
+  // 0101
+  // 0011
+  // ----
+  // 0110 = 6
+
+  5 ^ 1; // 4
+  5 ^ 5; // 0
+
+  // =================================================================
+  //                      Bitwise NOT (~)
+  // =================================================================
+
+  // NOT inverts every bit: 0 becomes 1, and 1 becomes 0.
+  // For JavaScript Number operands, the operation uses 32-bit
+  // integer representations.
+  //
+  // The result follows this identity:
+  ~x === -x - 1;
+
+  ~5;  // -6
+  ~3;  // -4
+  ~0;  // -1
+  ~-1; // 0
+  ~-5; // 4
+
+  // =================================================================
+  //                    Left Shift (<<)
+  // =================================================================
+
+  // Shifts bits to the left.
+  // Zeros fill the empty positions on the right.
+  // For suitable integer values, shifting left by one position
+  // is equivalent to multiplying by 2.
+
+  5 << 1; // 10
+  3 << 1; // 6
+  5 << 2; // 20
+
+  // =================================================================
+  //                 Signed Right Shift (>>)
+  // =================================================================
+
+  // Shifts bits to the right.
+  // The leftmost positions are filled with copies of the sign bit,
+  // preserving the sign of the 32-bit integer result.
+  // For ordinary integer values, shifting right by one position
+  // is similar to dividing by 2 and rounding down.
+
+  20 >> 2;  // 5
+  16 >> 2;  // 4
+  8 >> 1;   // 4
+  -8 >> 1;  // -4
+
+  // =================================================================
+  //                Unsigned Right Shift (>>>)
+  // =================================================================
+
+  // Shifts bits to the right and fills empty positions on the left
+  // with zeros, without preserving a negative sign.
+  // The result is interpreted as an unsigned 32-bit integer.
+
+  8 >>> 1;  // 4
+  -8 >>> 1; // 2147483644
+
+  // For non-negative integers, >> and >>> often produce the same
+  // result. For negative integers, their results can differ.
+
+  // =================================================================
+  //                      Bit Masks
+  // =================================================================
+
+  // Bit masks use individual bits to represent independent flags,
+  // permissions, or options. Each flag typically uses a power of 2.
+
+  const READ = 1;   // 001
+  const WRITE = 2;  // 010
+  const DELETE = 4; // 100
+
+  // Combine flags using bitwise OR (|).
+  const permissions = READ | DELETE; // 5 (101)
+
+  // Check whether a flag is present using bitwise AND (&).
+  permissions & READ;   // 1: READ is enabled
+  permissions & WRITE;  // 0: WRITE is not enabled
+  permissions & DELETE; // 4: DELETE is enabled
+
+  // A condition can check whether a flag is enabled.
+  if ((permissions & READ) !== 0) {
+    console.log("Can read");
+  }
+
 }
