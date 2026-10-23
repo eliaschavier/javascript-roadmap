@@ -1143,4 +1143,78 @@
     // 9007199254740992n + 1n;  // 9007199254740993n
   }
 
+  // =================================================================
+  //                       String Operators
+  // =================================================================
+  {
+    // The + operator concatenates strings.
+    // If one operand is a string, the other is usually converted to a string.
+
+    "Hello" + " World"; // "Hello World"
+    "Number: " + 10;    // "Number: 10"
+    "Value: " + true;   // "Value: true"
+
+    // ================================
+    //          Concatenation
+    // ================================
+
+    // The + operator can perform addition or string concatenation.
+    // The result depends on operand types and evaluation order.
+
+    "5" + 2;      // "52"
+    5 + "2";      // "52"
+    5 + 2 + "3";  // "73"
+    "5" + 2 + 3;  // "523"
+
+    // The + operator evaluates from left to right.
+
+    // ================================
+    //       Concatenation Assignment
+    // ================================
+
+    // The += operator concatenates strings and assigns the result.
+    // It is equivalent to assigning the result of value + operand.
+
+    let message = "Hello";
+    message += " World";
+
+    message; // "Hello World"
+
+    // += can also concatenate a string with a number.
+
+    let value = 5;
+    value += "2";
+
+    value; // "52"
+
+    // ================================
+    //       Type Conversion
+    // ================================
+
+    // The + operator may concatenate or perform numeric addition.
+    // Other arithmetic operators can convert numeric strings to numbers.
+
+    10 + "5"; // "105"
+    10 - "5"; // 5
+    "10" - 5; // 5
+    "10" * 2; // 20
+
+    // If a string cannot be converted to a number, the result may be NaN.
+
+    10 - "hello"; // NaN
+
+    // ================================
+    //       Template Literals
+    // ================================
+
+    // Template literals use backticks and allow expressions inside ${}.
+    // They provide an alternative way to build strings.
+
+    const name = "Elias";
+    const greeting = `Hello, ${name}!`;
+
+    greeting; // "Hello, Elias!"
+
+  }
+
 }
