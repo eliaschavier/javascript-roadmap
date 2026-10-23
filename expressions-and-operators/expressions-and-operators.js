@@ -709,187 +709,308 @@
   }
 
 
-  /* =================================================================
-                           Bitwise Operators
-  ================================================================= */
-
-  // Bitwise operators perform operations on the binary representations
-  // of numbers. They operate on individual bits and return a Number.
-
-  // JavaScript converts Number operands to 32-bit integers for
-  // bitwise operations. The result is also a 32-bit integer value
-  // represented as a JavaScript Number.
-
-  // Binary Representation
-  // A bit is a binary digit: 0 or 1.
-  // Each bit position represents a power of 2.
-  //
-  // Decimal 5 = Binary 0101
-  // Decimal 3 = Binary 0011
-  //
-  // Bitwise operators compare corresponding bit positions and
-  // produce a new binary result.
-
   // =================================================================
-  //                      Bitwise AND (&)
+  //                      Bitwise Operators
   // =================================================================
+  {
+    // Bitwise operators perform operations on the binary representations of numbers. 
+    // They operate on individual bits and return a Number.
 
-  // A result bit is 1 only when BOTH corresponding bits are 1.
+    // JavaScript converts Number operands to 32-bit integers for bitwise operations. 
+    // The result is also a 32-bit integer value represented as a JavaScript Number.
 
-  5 & 3; // 1
-  // 0101
-  // 0011
-  // ----
-  // 0001 = 1
+    // Binary Representation
+    // A bit is a binary digit: 0 or 1.
+    // Each bit position represents a power of 2.
+    //
+    // Decimal 5 = Binary 0101
+    // Decimal 3 = Binary 0011
+    //
+    // Bitwise operators compare corresponding bit positions and
+    // produce a new binary result.
 
-  5 & 1; // 1
-  5 & 2; // 0
-  7 & 3; // 3
+    // ================================
+    //         Bitwise AND (&)
+    // ================================
 
-  // =================================================================
-  //                      Bitwise OR (|)
-  // =================================================================
+    // A result bit is 1 only when BOTH corresponding bits are 1.
 
-  // A result bit is 1 when AT LEAST ONE corresponding bit is 1.
+    5 & 3; // 1
+    // 0101
+    // 0011
+    // ----
+    // 0001 = 1
 
-  5 | 3; // 7
-  // 0101
-  // 0011
-  // ----
-  // 0111 = 7
+    5 & 1; // 1
+    5 & 2; // 0
+    7 & 3; // 3
 
-  5 | 1; // 5
-  5 | 2; // 7
+    // ================================
+    //          Bitwise OR (|)
+    // ================================
 
-  // =================================================================
-  //                      Bitwise XOR (^)
-  // =================================================================
+    // A result bit is 1 when AT LEAST ONE corresponding bit is 1.
 
-  // XOR means exclusive OR.
-  // A result bit is 1 when the corresponding bits are DIFFERENT.
+    5 | 3; // 7
+    // 0101
+    // 0011
+    // ----
+    // 0111 = 7
 
-  5 ^ 3; // 6
-  // 0101
-  // 0011
-  // ----
-  // 0110 = 6
+    5 | 1; // 5
+    5 | 2; // 7
 
-  5 ^ 1; // 4
-  5 ^ 5; // 0
+    // ================================
+    //         Bitwise XOR (^)
+    // ================================
 
-  // =================================================================
-  //                      Bitwise NOT (~)
-  // =================================================================
+    // XOR means exclusive OR.
+    // A result bit is 1 when the corresponding bits are DIFFERENT.
 
-  // 'NOT' inverts every bit: 0 becomes 1, and 1 becomes 0.
-  // For JavaScript Number operands, the operation uses 32-bit
-  // integer representations.
-  //
-  // The result follows this identity:
-  ~x === -x - 1;
+    5 ^ 3; // 6
+    // 0101
+    // 0011
+    // ----
+    // 0110 = 6
 
-  ~5;  // -6
-  ~3;  // -4
-  ~0;  // -1
-  ~-1; // 0
-  ~-5; // 4
+    5 ^ 1; // 4
+    5 ^ 5; // 0
 
-  // =================================================================
-  //                    Left Shift (<<)
-  // =================================================================
+    // ================================
+    //          Bitwise NOT (~)
+    // ================================
 
-  // Shifts bits to the left.
-  // Zeros fill the empty positions on the right.
-  // For suitable integer values, shifting left by one position
-  // is equivalent to multiplying by 2.
+    // 'NOT' inverts every bit: 0 becomes 1, and 1 becomes 0.
+    // For JavaScript Number operands, the operation uses 32-bit
+    // integer representations.
+    //
+    // The result follows this identity:
+    ~x === -x - 1;
 
-  5 << 1; // 10
-  3 << 1; // 6
-  5 << 2; // 20
+    ~5;  // -6
+    ~3;  // -4
+    ~0;  // -1
+    ~-1; // 0
+    ~-5; // 4
 
-  // =================================================================
-  //                 Signed Right Shift (>>)
-  // =================================================================
+    // ================================
+    //          Left Shift (<<)
+    // ================================
 
-  // Shifts bits to the right.
-  // The leftmost positions are filled with copies of the sign bit, preserving the sign of the 32-bit integer result.
-  // For ordinary integer values, shifting right by one position is similar to dividing by 2 and rounding down.
+    // Shifts bits to the left.
+    // Zeros fill the empty positions on the right.
+    // For suitable integer values, shifting left by one position
+    // is equivalent to multiplying by 2.
 
-  20 >> 2;  // 5
-  16 >> 2;  // 4
-  8 >> 1;   // 4
-  -8 >> 1;  // -4
+    5 << 1; // 10
+    3 << 1; // 6
+    5 << 2; // 20
 
-  // =================================================================
-  //                Unsigned Right Shift (>>>)
-  // =================================================================
+    // ================================
+    //      Signed Right Shift (>>)
+    // ================================
 
-  // Shifts bits to the right and fills empty positions on the left
-  // with zeros, without preserving a negative sign.
-  // The result is interpreted as an unsigned 32-bit integer.
+    // Shifts bits to the right.
+    // The leftmost positions are filled with copies of the sign bit, preserving the sign of the 32-bit integer result.
+    // For ordinary integer values, shifting right by one position is similar to dividing by 2 and rounding down.
 
-  8 >>> 1;  // 4
-  -8 >>> 1; // 2147483644
+    20 >> 2;  // 5
+    16 >> 2;  // 4
+    8 >> 1;   // 4
+    -8 >> 1;  // -4
 
-  // For non-negative integers, >> and >>> often produce the same result. 
-  // For negative integers, their results can differ.
-  // BigInt does not support the >>> operator.
+    // ================================
+    //    Unsigned Right Shift (>>>)
+    // ================================
 
-  // =================================================================
-  //                    Bitwise Assignment
-  // =================================================================
+    // Shifts bits to the right and fills empty positions on the left
+    // with zeros, without preserving a negative sign.
+    // The result is interpreted as an unsigned 32-bit integer.
 
-  // These operators perform a bitwise operation and assign
-  // the result back to the variable.
+    8 >>> 1;  // 4
+    -8 >>> 1; // 2147483644
 
-  let flags = 5; // 0101
+    // For non-negative integers, >> and >>> often produce the same result. 
+    // For negative integers, their results can differ.
+    // BigInt does not support the >>> operator.
 
-  flags &= 3; // Same as flags = flags & 3; -> 1
-  flags |= 2; // Same as flags = flags | 2; -> 3
-  flags ^= 1; // Same as flags = flags ^ 1; -> 2
+    // ================================
+    //        Bitwise Assignment
+    // ================================
 
-  // =================================================================
-  //                        Bit Masks
-  // =================================================================
+    // These operators perform a bitwise operation and assign
+    // the result back to the variable.
 
-  // Bit masks use individual bits to represent flags, permissions or options.
-  // Powers of 2 allow each flag to use a separate bit.
+    let flags = 5; // 0101
 
-  const READ = 1;   // 001
-  const WRITE = 2;  // 010
-  const DELETE = 4; // 100
+    flags &= 3; // Same as flags = flags & 3; -> 1
+    flags |= 2; // Same as flags = flags | 2; -> 3
+    flags ^= 1; // Same as flags = flags ^ 1; -> 2
 
-  const permissions = READ | DELETE; // 5 (101)
+    // ================================
+    //            Bit Masks
+    // ================================
 
-  permissions & READ;   // 1: READ is enabled
-  permissions & WRITE;  // 0: WRITE is not enabled
-  permissions & DELETE; // 4: DELETE is enabled
+    // Bit masks use individual bits to represent flags, permissions or options.
+    // Powers of 2 allow each flag to use a separate bit.
 
-  if ((permissions & READ) !== 0) {
-    console.log("Can read");
+    const READ = 1;   // 001
+    const WRITE = 2;  // 010
+    const DELETE = 4; // 100
+
+    const permissions = READ | DELETE; // 5 (101)
+
+    permissions & READ;   // 1: READ is enabled
+    permissions & WRITE;  // 0: WRITE is not enabled
+    permissions & DELETE; // 4: DELETE is enabled
+
+    if ((permissions & READ) !== 0) {
+      console.log("Can read");
+    }
+
+    // ================================
+    //    Number-to-32-bit Conversion
+    // ================================
+
+    // Bitwise operations convert Number operands to 32-bit integers.
+    // Fractions are truncated toward zero before the operation.
+    // Values outside the signed 32-bit range wrap around.
+
+    5.9 | 0;       // 5
+    -5.9 | 0;      // -5
+    (2 ** 32) | 0; // 0
+    (2 ** 31) | 0; // -2147483648
+
+    // Shift counts use only the lowest 5 bits of the shift amount.
+    // Therefore, for Number operands, the effective shift count
+    // is between 0 and 31.
+
+    1 << 32; // 1, because the effective shift count is 0
+
+    // Avoid using bitwise operators for general-purpose arithmetic
+    // with large numbers or values requiring decimal precision.
   }
 
   // =================================================================
-  //                Number-to-32-bit Conversion
+  //                      Logical Operators 
   // =================================================================
+  {
+    // Logical operators evaluate expressions using truthiness and return values or booleans, depending on the operator.
 
-  // Bitwise operations convert Number operands to 32-bit integers.
-  // Fractions are truncated toward zero before the operation.
-  // Values outside the signed 32-bit range wrap around.
+    // ================================
+    //          Logical AND (&&)
+    // ================================
 
-  5.9 | 0;       // 5
-  -5.9 | 0;      // -5
-  (2 ** 32) | 0; // 0
-  (2 ** 31) | 0; // -2147483648
+    // Returns the first falsy operand, or the last operand
+    // if all operands are truthy.
 
-  // Shift counts use only the lowest 5 bits of the shift amount.
-  // Therefore, for Number operands, the effective shift count
-  // is between 0 and 31.
+    true && true;   // true
+    true && false;  // false
+    "JS" && 42;     // 42
+    0 && 42;        // 0
 
-  1 << 32; // 1, because the effective shift count is 0
+    // ================================
+    //           Logical OR (||)
+    // ================================
 
-  // Avoid using bitwise operators for general-purpose arithmetic
-  // with large numbers or values requiring decimal precision.
+    // Returns the first truthy operand, or the last operand
+    // if all operands are falsy.
 
+    false || true;   // true
+    10 || 20;        // 10
+    0 || 20;         // 20
+    "" || "default"; // "default"
 
+    // ================================
+    //          Logical NOT (!)
+    // ================================
+
+    // Converts the operand to a boolean and inverts it.
+    // Always returns a boolean.
+
+    !true;     // false
+    !false;    // true
+    !0;        // true
+    !"hello";  // false
+
+    // ================================
+    //        Boolean Conversion (!!)
+    // ================================
+
+    // Double NOT converts a value to a boolean based on truthiness.
+
+    !!0;        // false
+    !!"hello";  // true
+    !![];       // true
+    !!null;     // false
+
+    // ================================
+    //         Truthy and Falsy
+    // ================================
+
+    // Falsy values include:
+    // false, 0, -0, 0n, "", null, undefined, NaN.
+    //
+    // All other values are truthy, including:
+    // "0", "false", [], {}.
+    //
+    // Empty arrays and objects are truthy in JavaScript.
+
+    // ================================
+    //      Short-Circuit Evaluation
+    // ================================
+
+    // && skips the right operand if the left operand is falsy.
+    // || skips the right operand if the left operand is truthy.
+    //
+    // This can prevent unnecessary function calls or assignments.
+
+    let count = 0;
+
+    false && (count = 10);
+    true || (count = 20);
+
+    console.log(count); // 0
+
+    // ================================
+    //      Nullish Coalescing (??)
+    // ================================
+
+    // Returns the right operand only when the left operand
+    // is null or undefined.
+    //
+    // Unlike ||, it preserves other falsy values such as
+    // 0, false, and "".
+
+    0 || 10;        // 10
+    0 ?? 10;        // 0
+
+    false || true;  // true
+    false ?? true;  // false
+
+    null ?? "default";      // "default"
+    undefined ?? "default"; // "default"
+
+    // ================================
+    //       Operator Precedence
+    // ================================
+
+    // ! has higher precedence than &&.
+    // && has higher precedence than ||.
+    // Parentheses can change the evaluation order.
+
+    true || false && false;    // true
+    (true || false) && false;  // false
+
+    // ================================
+    //          Common Uses
+    // ================================
+
+    // Use || when any falsy value should trigger a default.
+    // Use ?? when only null or undefined should trigger a default.
+    // Use && for conditional execution.
+
+    const username = inputName ?? "Guest";
+    isLoggedIn && showDashboard();
+  }
 }
