@@ -1013,4 +1013,134 @@
     const username = inputName ?? "Guest";
     isLoggedIn && showDashboard();
   }
+
+  // =================================================================
+  //                       BigInt Operators
+  // =================================================================
+  {
+    // BigInt represents integers with arbitrary precision.
+    // Use the `n` suffix or the BigInt() function to create a BigInt.
+
+    const a = 123n;
+    const b = BigInt("123");
+
+    // ================================
+    //       Arithmetic Operators
+    // ================================
+
+    // BigInt supports addition, subtraction, multiplication,
+    // division, remainder, and exponentiation.
+
+    10n + 5n; // 15n
+    10n - 5n; // 5n
+    10n * 5n; // 50n
+    10n / 3n; // 3n
+    10n % 3n; // 1n
+    2n ** 3n; // 8n
+
+    // Division truncates the fractional part toward zero.
+    // It does not round the result.
+
+    -10n / 3n; // -3n
+    10n / 3n;  // 3n
+
+    // BigInt does not support negative exponents.
+
+    2n ** -1n; // RangeError
+    2 ** -1; // 0.5 (Number)
+
+    // ================================
+    //       Type Compatibility
+    // ================================
+
+    // BigInt and Number cannot be mixed in arithmetic operations.
+    // Convert explicitly when combining the two types.
+
+    10n + 5n; // 15n
+    10 + 5;   // 15
+    10n + 5;  // TypeError
+
+    10n + BigInt(5); // 15n
+    Number(10n) + 5; // 15
+
+    // Converting a large BigInt to Number may lose precision.
+
+    // ================================
+    //       Comparison Operators
+    // ================================
+
+    // BigInt and Number can be compared.
+    // Loose equality allows comparison across these types.
+    // Strict equality requires the same type.
+
+    5n == 5;  // true
+    5n === 5; // false
+    5n > 4;   // true
+    5n < 6;   // true
+
+    // ================================
+    //       Increment and Decrement
+    // ================================
+
+    // Increment and decrement work with BigInt variables. 
+    // The variable must be reassignable.
+
+    let count = 5n;
+
+    count++; // count becomes 6n
+    count--; // count becomes 5n
+
+    // Prefix returns the updated value.
+    // Postfix returns the previous value.
+
+    let x = 5n;
+
+    ++x; // expression value: 6n; x becomes 6n
+    x++; // expression value: 6n; x becomes 7n
+
+    // ================================
+    //          Bitwise Operators
+    // ================================
+
+    // BigInt supports bitwise operations without converting
+    // operands to 32-bit integers.
+
+    5n & 3n;  // 1n
+    5n | 3n;  // 7n
+    5n ^ 3n;  // 6n
+    ~5n;      // -6n
+
+    // Left and signed right shifts are supported.
+
+    5n << 1n; // 10n
+    9n >> 1n; // 4n
+
+    // Unsigned right shift is not supported for BigInt.
+
+    9n >>> 1n; // TypeError
+
+    // ================================
+    //        Division by Zero
+    // ================================
+
+    // BigInt division or remainder by zero throws a RangeError.
+    // Unlike Number, it does not produce Infinity or NaN.
+
+    10n / 0n; // RangeError
+    10n % 0n; // RangeError
+
+    // ================================
+    //         Important Notes
+    // ================================
+
+    // BigInt represents integers only; it has no fractional values.
+    // BigInt arithmetic preserves integer precision for large values.
+    // Use BigInt when integers may exceed Number's safe integer range.
+    // BigInt cannot be used directly with Math methods expecting Number.
+    // JSON.stringify() does not serialize BigInt by default.
+
+    // Number.MAX_SAFE_INTEGER; // 9007199254740991
+    // 9007199254740992n + 1n;  // 9007199254740993n
+  }
+
 }
