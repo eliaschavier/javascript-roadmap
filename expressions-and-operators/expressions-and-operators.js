@@ -781,7 +781,7 @@
   //                      Bitwise NOT (~)
   // =================================================================
 
-  // NOT inverts every bit: 0 becomes 1, and 1 becomes 0.
+  // 'NOT' inverts every bit: 0 becomes 1, and 1 becomes 0.
   // For JavaScript Number operands, the operation uses 32-bit
   // integer representations.
   //
@@ -812,10 +812,8 @@
   // =================================================================
 
   // Shifts bits to the right.
-  // The leftmost positions are filled with copies of the sign bit,
-  // preserving the sign of the 32-bit integer result.
-  // For ordinary integer values, shifting right by one position
-  // is similar to dividing by 2 and rounding down.
+  // The leftmost positions are filled with copies of the sign bit, preserving the sign of the 32-bit integer result.
+  // For ordinary integer values, shifting right by one position is similar to dividing by 2 and rounding down.
 
   20 >> 2;  // 5
   16 >> 2;  // 4
@@ -833,31 +831,65 @@
   8 >>> 1;  // 4
   -8 >>> 1; // 2147483644
 
-  // For non-negative integers, >> and >>> often produce the same
-  // result. For negative integers, their results can differ.
+  // For non-negative integers, >> and >>> often produce the same result. 
+  // For negative integers, their results can differ.
+  // BigInt does not support the >>> operator.
 
   // =================================================================
-  //                      Bit Masks
+  //                    Bitwise Assignment
   // =================================================================
 
-  // Bit masks use individual bits to represent independent flags,
-  // permissions, or options. Each flag typically uses a power of 2.
+  // These operators perform a bitwise operation and assign
+  // the result back to the variable.
+
+  let flags = 5; // 0101
+
+  flags &= 3; // Same as flags = flags & 3; -> 1
+  flags |= 2; // Same as flags = flags | 2; -> 3
+  flags ^= 1; // Same as flags = flags ^ 1; -> 2
+
+  // =================================================================
+  //                        Bit Masks
+  // =================================================================
+
+  // Bit masks use individual bits to represent flags, permissions or options.
+  // Powers of 2 allow each flag to use a separate bit.
 
   const READ = 1;   // 001
   const WRITE = 2;  // 010
   const DELETE = 4; // 100
 
-  // Combine flags using bitwise OR (|).
   const permissions = READ | DELETE; // 5 (101)
 
-  // Check whether a flag is present using bitwise AND (&).
   permissions & READ;   // 1: READ is enabled
   permissions & WRITE;  // 0: WRITE is not enabled
   permissions & DELETE; // 4: DELETE is enabled
 
-  // A condition can check whether a flag is enabled.
   if ((permissions & READ) !== 0) {
     console.log("Can read");
   }
+
+  // =================================================================
+  //                Number-to-32-bit Conversion
+  // =================================================================
+
+  // Bitwise operations convert Number operands to 32-bit integers.
+  // Fractions are truncated toward zero before the operation.
+  // Values outside the signed 32-bit range wrap around.
+
+  5.9 | 0;       // 5
+  -5.9 | 0;      // -5
+  (2 ** 32) | 0; // 0
+  (2 ** 31) | 0; // -2147483648
+
+  // Shift counts use only the lowest 5 bits of the shift amount.
+  // Therefore, for Number operands, the effective shift count
+  // is between 0 and 31.
+
+  1 << 32; // 1, because the effective shift count is 0
+
+  // Avoid using bitwise operators for general-purpose arithmetic
+  // with large numbers or values requiring decimal precision.
+
 
 }
