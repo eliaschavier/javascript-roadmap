@@ -187,3 +187,262 @@
 
 }
 
+// =================================================================
+//                    Scope & Function Stack
+// =================================================================
+{
+  // ================================
+  //             Scope
+  // ================================
+
+  // Global variables can be accessed inside functions.
+
+  const globalValue = 10;
+
+  function example() {
+    console.log(globalValue);
+  }
+
+  // Function-scoped variables cannot be accessed outside their function.
+
+  function test() {
+    const localValue = 20;
+  }
+
+  // console.log(localValue); // ReferenceError
+
+  // ================================
+  //          Block Scope
+  // ================================
+
+  // let and const are block-scoped.
+  // var is function-scoped.
+
+  if (true) {
+    let a = 10;
+    var b = 20;
+  }
+
+  // console.log(a); // ReferenceError
+  console.log(b); // 20
+
+  // ================================
+  //        Lexical Scope
+  // ================================
+
+  // Inner functions can access variables from outer scopes.
+
+  function outer() {
+    const message = "Hello";
+
+    function inner() {
+      console.log(message);
+    }
+
+    inner();
+  }
+
+  outer(); // "Hello"
+
+  // ================================
+  //           Shadowing
+  // ================================
+
+  // An inner variable can shadow an outer variable.
+
+  const value = 10;
+
+  function show() {
+    const value = 20;
+    console.log(value); // 20
+  }
+
+  show();
+  console.log(value); // 10
+
+  // ================================
+  //            Hoisting
+  // ================================
+
+  // var declarations are hoisted and initialized with undefined.
+  // let and const are hoisted but remain in the Temporal Dead Zone.
+
+  // console.log(a); // undefined
+  // var a = 10;
+
+  // console.log(b); // ReferenceError
+  // let b = 20;
+
+  // ================================
+  //           Call Stack
+  // ================================
+
+  // The Call Stack tracks function execution.
+  // It follows LIFO: Last In, First Out.
+
+  function first() {
+    second();
+    console.log("First");
+  }
+
+  function second() {
+    console.log("Second");
+  }
+
+  first(); // "Second", "First"
+
+  // ================================
+  //           Recursion
+  // ================================
+
+  // Recursion occurs when a function calls itself.
+  // A base case stops further recursive calls.
+
+  function count(n) {
+    if (n === 0) return;
+
+    console.log(n);
+    count(n - 1);
+    console.log(n);
+  }
+
+  count(3); // 3, 2, 1, 1, 2, 3
+
+}
+
+// =================================================================
+//                       Lexical Scoping
+// =================================================================
+{
+
+  // Scope is determined by where a function is defined, not where it is called.
+
+  // ================================
+  //          Outer Scope
+  // ================================
+
+  // Inner functions can access variables from outer scopes.
+
+  function outer() {
+    const message = "Hello";
+
+    function inner() {
+      console.log(message);
+    }
+
+    inner();
+  }
+
+  outer(); // "Hello"
+
+  // ================================
+  //        Definition vs Call
+  // ================================
+
+  // A function uses the scope where it was defined.
+
+  const value = "global";
+
+  function inner() {
+    console.log(value);
+  }
+
+  function outer() {
+    const value = "local";
+    inner();
+  }
+
+  outer(); // "global"
+
+  // ================================
+  //        Nested Functions
+  // ================================
+
+  // A function defined inside another can access its local variables.
+
+  function first() {
+    const color = "red";
+
+    function second() {
+      console.log(color);
+    }
+
+    second();
+  }
+
+  first(); // "red"
+
+}
+
+// =================================================================
+//                           Closures
+// =================================================================
+{
+  // A closure retains access to its lexical environment, even after the outer function has finished executing.
+
+  function outer() {
+    const message = "Hello";
+
+    return function inner() {
+      return message;
+    };
+  }
+
+  const greet = outer();
+
+  greet(); // "Hello"
+
+  // ================================
+  //         Preserving State
+  // ================================
+
+  // Closures can preserve variables between function calls.
+
+  function createCounter() {
+    let count = 0;
+
+    return function () {
+      return ++count;
+    };
+  }
+
+  const counter = createCounter();
+
+  counter(); // 1
+  counter(); // 2
+  counter(); // 3
+
+  // ================================
+  //       Independent Closures
+  // ================================
+
+  // Each function call creates a separate lexical environment.
+
+  const counterA = createCounter();
+  const counterB = createCounter();
+
+  counterA(); // 1
+  counterA(); // 2
+  counterB(); // 1
+
+  // ================================
+  //       Shared Environment
+  // ================================
+
+  // Functions created in the same scope can share variables.
+
+  function createFunctions() {
+    let value = 0;
+
+    return {
+      increment: () => ++value,
+      getValue: () => value
+    };
+  }
+
+  const functions = createFunctions();
+
+  functions.increment();
+  functions.getValue(); // 1
+
+}
