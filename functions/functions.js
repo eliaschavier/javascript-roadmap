@@ -446,3 +446,118 @@
   functions.getValue(); // 1
 
 }
+
+// =================================================================
+//                       Built-in Functions
+// =================================================================
+{
+  // ================================
+  //       Number Conversion
+  // ================================
+
+  // parseInt() extracts the integer part.
+  parseInt("15.9px"); // 15
+  parseInt("25px");   // 25
+  parseInt("px25");   // NaN
+
+  // parseFloat() extracts a floating-point number.
+  parseFloat("15.9px"); // 15.9
+
+  // The second argument defines the numeric base (radix).
+  parseInt("101", 2); // 5
+
+  // ================================
+  //       Type Checking
+  // ================================
+
+  // Global functions convert values before checking.
+  isNaN("hello");  // true
+  isNaN("123");    // false
+  isFinite("100"); // true
+
+  // Number methods do not perform type coercion.
+  Number.isNaN("hello");   // false
+  Number.isNaN(NaN);      // true
+  Number.isFinite("100"); // false
+  Number.isFinite(100);   // true
+
+  // ================================
+  //        Timers
+  // ================================
+
+  // setTimeout() schedules a callback after a delay.
+  const timeout = setTimeout(() => {
+    console.log("Executed!");
+  }, 2000);
+
+  // Cancel a scheduled timeout.
+  clearTimeout(timeout);
+
+  // setInterval() repeats a callback at intervals.
+  let count = 0;
+
+  const interval = setInterval(() => {
+    count++;
+
+    if (count === 3) {
+      clearInterval(interval);
+    }
+  }, 1000);
+
+  // A zero delay does not mean immediate execution.
+  // Synchronous code runs before the scheduled callback.
+
+  // ================================
+  //         URI Encoding
+  // ================================
+
+  // encodeURIComponent() encodes a URL component.
+  const value = "hello world & coffee";
+  const encoded = encodeURIComponent(value);
+
+  // "hello%20world%20%26%20coffee"
+  console.log(encoded);
+
+  // Decode an encoded URI component.
+  decodeURIComponent(encoded); // "hello world & coffee"
+
+  // encodeURI() preserves URL structural characters.
+  // encodeURIComponent() encodes them as part of a value.
+  encodeURI("hello world & coffee");
+  encodeURIComponent("hello world & coffee");
+
+  // ================================
+  //           eval()
+  // ================================
+
+  // eval() executes JavaScript code from a string.
+  eval("10 + 20 * 2"); // 50
+
+  // Avoid eval() with untrusted input.
+  // It can execute malicious JavaScript code.
+
+  // ================================
+  //       Structured Clone
+  // ================================
+
+  // structuredClone() creates a deep independent copy.
+  const original = {
+    name: "Elias",
+    date: new Date(),
+    hobbies: ["skate", "photography"],
+    scores: new Map([["level", 10]])
+  };
+
+  const copy = structuredClone(original);
+
+  copy.hobbies.push("music");
+
+  console.log(original.hobbies);
+  // ["skate", "photography"]
+
+  console.log(copy.hobbies);
+  // ["skate", "photography", "music"]
+
+  // Supports Date, Map, Set and circular references.
+  // Does not support cloning functions or every object type.
+}
